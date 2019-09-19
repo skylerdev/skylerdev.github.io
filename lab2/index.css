@@ -1,0 +1,46 @@
+
+
+input {
+  margin-bottom: 10px;
+  align-self: left;
+  size: 80;
+}
+
+td{
+  text-align: left;
+  padding: 5px;
+  font-family: "Arial", Helvetica, sans-serif;
+
+
+}
+
+h1 {
+  padding-left: 30px;
+  font-family: Tahoma, Geneva, sans-serif;
+
+}
+  
+#content {
+  text-align: center;
+}
+
+
+.centeredbox {
+  align-self: center;
+  display:inline-block;
+  border-style: solid;
+  border-width: 1px;
+   border-color: lightgray;
+   
+
+}
+#searchbox {
+  width: 500px;
+  align-content: left;
+}
+
+tr:hover {
+  background-color: lightgrey;
+
+}
+
