@@ -1,13 +1,14 @@
-
-
 input {
-  margin-bottom: 10px;
-  display: block;
+  margin-top:5px;
 }
 
 img {
   max-height: 100px;
   max-width: 100px;
+}
+
+input[type=text]{
+    border-radius: 3px;
 }
 
 .delete {
@@ -25,8 +26,22 @@ img {
 }
 
 .addbutton {
-  background-color: light-grey;
+  background-color: lightgrey;
   font-family: "Arial", Helvetica, sans-serif;
+  
+  margin-right: 15px;
+}
+
+#searchdiv{
+  float: left;
+  width:65%;
+  clear: none;
+}
+
+#buttondiv{
+  float:left;
+  width: 35%;
+  clear:right;
 }
 
 img {
@@ -39,8 +54,6 @@ td{
   font-family: "Arial", Helvetica, sans-serif;
 }
 
-
-
 h1 {
   padding-left: 30px;
   font-family: Tahoma, Geneva, sans-serif;
@@ -50,7 +63,6 @@ h1 {
 #content {
   text-align: center;
 }
-
 
 .centeredbox {
   align-self: center;
@@ -64,6 +76,21 @@ h1 {
 #searchbox {
   width: 500px;
   align-content: left;
+}
+
+#addPanel > input {
+  display: block;
+
+}
+
+#search {
+  width: 90%;
+}
+
+#addPanel {
+ margin-right: 5%;
+ margin-left: 5%;
+
 }
 
 tr:hover {

@@ -5,7 +5,7 @@
         function showHideToggle() {
      var x = document.getElementById("addPanel");
      if (x.style.display === "none") {
-       x.style.display = "block";
+       x.style.display = "inline-block";
       } else {
         x.style.display = "none";
 
