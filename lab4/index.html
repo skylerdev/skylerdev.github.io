@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html>
+ <head>
+    <title>
+        Skyler Devlaming home page
+    </title>
+     <link rel="stylesheet"  href="index.css" />
+     <script type="text/javascript" src="index.js"></script>
+</head> 
+    <body onload="load()"> 
+       <div id="content">
+           <div align="center" id="searchbox" class="centeredbox">
+               <h1 align="left">Artist Directory</h1>
+               <div id="searchdiv">
+                   <input type="text" id="search" placeholder="Search"> 
+               </div>
+               <div id="buttondiv">
+                  
+                   <input type="button" onclick="searchClicked()" value="Search" class="addbutton">
+                    <input type="button" onclick="showHideToggle()" value="Add artist" class="addbutton">
+               </div>
+               <div id="addPanel" style="display:none;">
+                    <input id="name" placeholder="Artist Name" type="text">
+                    <input id="description" placeholder="About artist" type="text">
+                    <input id="image"  placeholder="Image url" type="text">    
+                    <input class="addbutton" type="button" onclick="addArtist()" value="Add">
+               </div>
+               <p>
+           </div>
+           <div class="centered">
+               <table class="centeredbox" id="artists">
+               </table>
+            </div>    
+        </body> 
+</html>

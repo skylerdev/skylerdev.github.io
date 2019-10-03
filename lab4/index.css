@@ -1,0 +1,101 @@
+input {
+  margin-top:5px;
+}
+
+img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+input[type=text]{
+    border-radius: 3px;
+}
+
+
+.delete {
+  background-color: red;
+  color: white;
+  border-radius: 12px;
+  margin-left: 80%;
+  width: 20%;
+  height:30px;
+
+}
+
+.wide {
+  min-width: 300px;
+}
+
+.addbutton {
+  background-color: lightgrey;
+  font-family: "Arial", Helvetica, sans-serif;
+  
+  margin-right: 15px;
+}
+
+#searchdiv{
+  float: left;
+  width:65%;
+  clear: none;
+}
+
+#buttondiv{
+  float:left;
+  width: 35%;
+  clear:right;
+}
+
+img {
+  border-radius: 12px;
+}
+
+td{
+  text-align: left;
+  padding: 5px;
+  font-family: "Arial", Helvetica, sans-serif;
+}
+
+h1 {
+  padding-left: 30px;
+  font-family: Tahoma, Geneva, sans-serif;
+
+}
+  
+#content {
+  text-align: center;
+}
+
+.centeredbox {
+  align-self: center;
+  display:inline-block;
+  border-style: solid;
+  border-width: 1px;
+   border-color: lightgray;
+   
+
+}
+#searchbox {
+  width: 500px;
+  align-content: left;
+}
+
+#addPanel > input {
+  display: block;
+
+}
+
+#search {
+  width: 90%;
+}
+
+#addPanel {
+ margin-right: 5%;
+ margin-left: 5%;
+
+
+
+tr:hover {
+  background-color: lightgrey;
+
+}
+
