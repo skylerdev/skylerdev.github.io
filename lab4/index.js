@@ -19,6 +19,7 @@
         var i;
         for(i = 0; i < rows.length; i++){
             var titleText = rows[i].querySelector("strong").innerText.toLowerCase();
+            rows[i].style.display = "block";
             if(!titleText.includes(filterText)){
                 rows[i].style.display = "none";
             }
