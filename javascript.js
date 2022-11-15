@@ -3,19 +3,19 @@ function sleep(ms) {
 }
 
 function startTyping() {
-    let typables = document.getElementsByClassName("typable")
+    let normal = document.getElementsByClassName("typable")
     let slower = document.getElementsByClassName("typableSlow")
     let faster = document.getElementsByClassName("typableFast")
 
-    for (let i = 0; i < typables.length; i++) {
-        typeOut(typables[i], 20, 0)
+    for (let i = 0; i < normal.length; i++) {
+        typeOut(normal[i], 20, 0)
     }
 
     for (let i = 0; i < slower.length; i++) {
         typeOut(slower[i], 100, 100)
     }
 
-    for (let i = 0; i < slower.length; i++) {
+    for (let i = 0; i < faster.length; i++) {
         typeOut(faster[i], 10, 3)
     }
 
