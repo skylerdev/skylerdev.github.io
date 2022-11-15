@@ -7,30 +7,104 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #F0E9E4;
+            background-color: #000000;
             font-family: 'Nunito', sans-serif;
             padding: 40px;
+            color: #00DD00;
+            height:  100%;
+        }
+
+        a {
+            color: #00aa00;
+        }
+
+
+        #navbarlist {
+            list-style-type: none;
+        }
+
+        #headshotImg {
+            width: 20%;
+            height: auto;
+            border-radius: 50px;
+        }
+
+        div.gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 180px;
+            text-align: center;
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        div.gallery img {
+            width: 50%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
         }
     </style>
+    <script src="javascript.js"></script>
 </head>
-<body>
-<div id="bigheader">
-    <h1>
-        Skyler Devlaming
-    </h1>
+<body onload="startTyping()">
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+
+<div id="heroPage">
+    <img id="headshotImg" src="media/headshot.jpg">
+    <h1 class ="typableSlow">skyler [dev]laming</h1>
 </div>
 <div id="about">
-    <h2>About me</h2>
-<p>
-  Hi! I'm Skyler De Vlaming, a Developer, Musician, and Athlete in Vancouver, BC.
-<p>
-    For more information on my projects, please check below.
+    <h2>//: <a class="typableSlow">About me</a></h2>
+<p class="typableFast">
+  Hi! I'm Skyler Devlaming, a Developer, Musician, and Athlete in Vancouver, BC.
+  I've been programming ever since I could use a terminal, and started formally learning in high school, where I took AP CompSci A. I graduated from the British Columbia Institute of Technology in 2020, and now work on my own time as an iOS Developer.
+<p class="typable">
+    I previously worked at Provincial Health Services Authority as a technical analyst for an app called Procura, which scheduled healthcare workers providing at home services to patients.
+<p class="typable">
+    I enjoy programming because I recieve fulfillment from filling a need to end users, whether that be through entertainment or utility. My goal is to continue developing iOS apps that make people happy!
 </div>
+
+
+    <div id="contact">
+        <h2>//: <a class="typableSlow">Contact</a></h2>
+        <p>
+            skylerdev@icloud.com
+            <a href="https://github.com/skylerdev">Github</a>
+            <a href="https://www.linkedin.com/in/skylerdv/">LinkedIn</a>
+    </div>
+
+
 <div id="projects">
-    <h2>Projects</h2>
-    <a href="whosonaux">Who's On Aux</a>
-    <a href="kb">Knowledgebase</a>
-    <a href="mcwiki">McWiki</a>
+    <h2>//: <a class="typableSlow">Projects</a></h2>
+
+    <div class="gallery">
+        <a target="_blank" href="projects/pokerchips.html">
+            <img src="media/pokerchips.png" alt="Poker Chips" width="600" height="400" >
+        </a>
+        <div class="desc">PokerChips</div>
+    </div>
+
+    <div class="gallery">
+        <a target="_blank" href="projects/whosonaux.html">
+            <img src="media/aux.png" alt="Whos On Aux" width="600" height="400">
+        </a>
+        <div class="desc">WhosOnAux</div>
+    </div>
 </div>
+
+
+
 </body>
 </html>
