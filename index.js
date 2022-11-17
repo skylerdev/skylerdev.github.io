@@ -21,6 +21,13 @@ function startTyping() {
 
 }
 
+function toggleDebugBorders() {
+    let childs = document.children;
+    for( let i = 0; i < childs.length; i++) {
+        childs[i].setAttribute("class", childs[i].getAttribute("class") + " debugBorder")
+    }
+}
+
 
 async function typeOut(elem, time, variance) {
     let text = elem.innerHTML

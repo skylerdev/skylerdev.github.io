@@ -4,49 +4,14 @@
     <title>
         Skyler Devlaming
     </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #000000;
-            font-family: 'Nunito', sans-serif;
-            padding: 40px;
-            color: #00DD00;
-            height:  100%;
-        }
+    <link href="index.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-        a {
-            color: #00aa00;
-        }
-
-        #headshotImg {
-            width: 20%;
-            height: auto;
-            border-radius: 50px;
-        }
-
-        div.gallery {
-            margin: 5px;
-            border: 1px solid #ccc;
-            float: left;
-            width: 180px;
-            text-align: center;
-        }
-
-        div.gallery:hover {
-            border: 1px solid #777;
-        }
-
-        div.gallery img {
-            width: 50%;
-            height: auto;
-        }
-
-        div.desc {
-            padding: 15px;
-            text-align: center;
-        }
-    </style>
-    <script src="javascript.js"></script>
 </head>
 <body onload="startTyping()">
 <div class="topnav">
@@ -55,9 +20,13 @@
   <a href="#about">About</a>
 </div>
 
-<div id="heroPage">
-    <img id="headshotImg" src="media/headshot.jpg" alt="Headshot">
-    <h1 class ="typableSlow">skyler [dev]laming</h1>
+<div >
+    <div class="centerboxparent">
+        <img class="centerboxchild" id="headshotImg" src="media/headshot.jpg" alt="Headshot">
+</div>
+<div class="centerboxparent">
+    <h1 id="heroTitle" class="typableSlow centerboxchild">skyler [dev]laming</h1>
+</div>
 </div>
 <div id="about">
     <h2>//: <a class="typableSlow">About me</a></h2>
