@@ -1,55 +1,26 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const revealItems = document.querySelectorAll(".reveal");
+
+if (prefersReducedMotion) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+} else {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.2 }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
 }
 
-function startTyping() {
-    let normal = document.getElementsByClassName("typable")
-    let slower = document.getElementsByClassName("typableSlow")
-    let faster = document.getElementsByClassName("typableFast")
-
-    for (let i = 0; i < normal.length; i++) {
-        typeOut(normal[i], 20, 0)
-    }
-
-    for (let i = 0; i < slower.length; i++) {
-        typeOut(slower[i], 100, 100)
-    }
-
-    for (let i = 0; i < faster.length; i++) {
-        typeOut(faster[i], 10, 3)
-    }
-
+const yearEl = document.querySelector("[data-current-year]");
+if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
 }
-
-function toggleDebugBorders() {
-    let childs = document.children;
-    for( let i = 0; i < childs.length; i++) {
-        childs[i].setAttribute("class", childs[i].getAttribute("class") + " debugBorder")
-    }
-}
-
-
-async function typeOut(elem, time, variance) {
-    let text = elem.innerHTML
-    var newText = "_"
-
-
-    for (let i = 0; i < text.length; i++) {
-        var newVariance = Math.floor(Math.random() * variance);
-        newVariance -= Math.floor(variance/2)
-        console.log(variance, newVariance)
-        newText = newText.substring(0, newText.length - 1) + text[i] + "_"
-        elem.innerHTML = newText
-        await sleep(time + variance)
-    }
-
-    elem.innerHTML = elem.innerHTML.substring(0, newText.length - 1)
-}
-
-
-
-
-
-
-        
-    

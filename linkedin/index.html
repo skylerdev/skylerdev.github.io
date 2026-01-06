@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-link-key="linkedin">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirecting to LinkedIn</title>
+    <style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            background: #f6efe6;
+            color: #1f1a14;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            text-align: center;
+        }
+        .redirect {
+            background: #fff8ef;
+            border: 1px solid #e1d6cb;
+            padding: 32px;
+            border-radius: 20px;
+            max-width: 420px;
+            box-shadow: 0 18px 50px rgba(31, 26, 20, 0.12);
+        }
+        a {
+            color: #2d7c82;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+    <script src="/link-redirect.js" defer></script>
+</head>
+<body>
+    <main class="redirect">
+        <h1>Redirecting to LinkedIn</h1>
+        <p data-redirect-status>Loading link...</p>
+        <p>If you are not redirected, <a data-redirect-fallback href="/">click here</a>.</p>
+    </main>
+</body>
+</html>

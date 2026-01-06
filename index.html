@@ -1,73 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>
-        Skyler Devlaming
-    </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <script src="index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skyler Devlaming | iOS Developer</title>
+    <meta name="description" content="Portfolio of Skyler Devlaming, Vancouver-based iOS developer available for new work, open to entry-level and junior roles across mobile, web, full stack, DevOps, systems integration, and databases.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <script src="index.js" defer></script>
 </head>
-<body onload="startTyping()">
-<div class="topnav">
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-<div >
-    <div class="centerboxparent">
-        <img class="centerboxchild" id="headshotImg" src="media/headshot.jpg" alt="Headshot">
-</div>
-<div class="centerboxparent">
-    <h1 id="heroTitle" class="typableSlow centerboxchild">skyler [dev]laming</h1>
-</div>
-</div>
-<div id="about">
-    <h2>//: <a class="typableSlow">About me</a></h2>
-<p class="typableFast">
-  Hi! I'm Skyler Devlaming, a Developer, Musician, and Athlete in Vancouver, BC.
-  I've been programming ever since I could use a terminal, and started formally learning in high school, where I took AP CompSci A. I graduated from the British Columbia Institute of Technology in 2020, and now work on my own time as an iOS Developer.
-<p class="typable">
-    I previously worked at Provincial Health Services Authority as a technical analyst for an app called Procura, which scheduled healthcare workers providing at home services to patients.
-<p class="typable">
-    I enjoy programming because I recieve fulfillment from filling a need to end users, whether that be through entertainment or utility. My goal is to continue developing iOS apps that make people happy!
-</div>
-
-
-    <div id="contact">
-        <h2>//: <a class="typableSlow">Contact</a></h2>
-        <p>
-            skylerdev@icloud.com
-            <a href="https://github.com/skylerdev">Github</a>
-            <a href="https://www.linkedin.com/in/skylerdv/">LinkedIn</a>
+    <div class="ambient" aria-hidden="true">
+        <span class="orb orb--one"></span>
+        <span class="orb orb--two"></span>
+        <span class="orb orb--three"></span>
     </div>
 
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="logo" href="#top" aria-label="Skyler Devlaming home">
+                <span class="logo-mark">SD</span>
+                <span class="logo-text">Skyler Devlaming</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="#work">Work</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a class="btn btn--ghost" href="#contact">Start a project</a>
+        </div>
+    </header>
 
-<div id="projects">
-    <h2>//: <a class="typableSlow">Projects</a></h2>
+    <main id="main">
+        <section class="hero" id="top">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow reveal">iOS developer + musician + athlete</p>
+                    <h1 class="reveal">I build focused iOS products that feel effortless and human.</h1>
+                    <p class="lede reveal">Hi! I am Skyler Devlaming, a Vancouver-based developer who blends clean engineering with a love for music and movement. I build apps that make people happy.</p>
+                    <p class="hero-note reveal">Available for new work now and open to entry-level and junior software roles. Targeting mobile and web development, full stack work, DevOps automation, systems integration, and databases.</p>
+                    <div class="hero-actions reveal">
+                        <a class="btn" href="#work">View selected work</a>
+                        <a class="btn btn--ghost" href="#contact">Let us collaborate</a>
+                    </div>
+                    <div class="hero-meta reveal">
+                        <div>
+                            <p class="meta-label">Based in</p>
+                            <p class="meta-value">Vancouver, BC</p>
+                        </div>
+                        <div>
+                            <p class="meta-label">Focus</p>
+                            <p class="meta-value">Mobile + web, full stack, DevOps</p>
+                        </div>
+                        <div>
+                            <p class="meta-label">Availability</p>
+                            <p class="meta-value">Available now (ASAP)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-card reveal">
+                    <div class="portrait-frame">
+                        <img src="media/headshot.jpg" alt="Portrait of Skyler Devlaming">
+                    </div>
+                    <div class="hero-card-copy">
+                        <p class="card-title">Current headline</p>
+                        <p class="card-body">Independent iOS developer shipping playful, polished apps with real-world utility.</p>
+                    </div>
+                    <div class="hero-card-tags">
+                        <span>Swift</span>
+                        <span>SwiftUI</span>
+                        <span>Product Strategy</span>
+                        <span>DevOps</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="gallery">
-        <a target="_blank" href="pokerchips">
-            <img src="media/pokerchips.png" alt="Poker Chips" width="600" height="400" >
-        </a>
-        <div class="desc">PokerChips</div>
-    </div>
+        <section class="section" id="work">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Selected work</p>
+                    <h2>Products built to simplify real moments.</h2>
+                    <p class="lede">A mix of independent builds and product work, with a focus on clarity, flow, and a little delight.</p>
+                </div>
+                <div class="work-grid">
+                    <article class="work-card reveal">
+                        <div class="work-media">
+                            <img src="media/pokerchips.png" alt="Chipless app preview">
+                        </div>
+                        <div class="work-body">
+                            <div>
+                                <p class="work-label">Chipless - Poker Helper</p>
+                                <h3>Run home poker games without physical chips.</h3>
+                                <p class="work-desc">Seat 3-8 players, rotate blinds automatically, track bets with sliders, and pick winners fast.</p>
+                            </div>
+                            <ul class="work-meta">
+                                <li>Role: iOS developer</li>
+                                <li>Platform: iOS</li>
+                                <li>Status: Coming soon</li>
+                                <li>Launch: 2026</li>
+                            </ul>
+                            <div class="work-actions">
+                                <a class="text-link" href="/chipless">Preview details</a>
+                                <a class="btn btn--small" href="/chipless">Preview</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work-card reveal">
+                        <div class="work-media">
+                            <img src="media/aux.png" alt="Who's On Aux app preview">
+                        </div>
+                        <div class="work-body">
+                            <div>
+                                <p class="work-label">Who's On Aux</p>
+                                <h3>A live-updating Spotify playlist built for hanging with friends.</h3>
+                                <p class="work-desc">Queue songs together, keep sessions moving, and make every hang feel like a tiny DJ set. Reached 5,000+ downloads and roughly 20k impressions in 2023.</p>
+                            </div>
+                            <ul class="work-meta">
+                                <li>Role: iOS developer</li>
+                                <li>Platform: iOS</li>
+                                <li>Status: Live</li>
+                                <li>Stack: Swift, UIKit, Spotify API</li>
+                            </ul>
+                            <div class="work-actions">
+                                <a class="text-link" href="/whosonaux">View details</a>
+                                <a class="btn btn--small" href="/whosonaux">Open</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="work-card reveal">
+                        <div class="work-media">
+                            <div class="work-media-text">Anagram launches 2026</div>
+                        </div>
+                        <div class="work-body">
+                            <div>
+                                <p class="work-label">Anagram</p>
+                                <h3>A real-time multiplayer word game built for fast, friendly competition.</h3>
+                                <p class="work-desc">Socket-based backend with a Swift mobile client and a Node.js service powering real-time play.</p>
+                            </div>
+                            <ul class="work-meta">
+                                <li>Role: Developer</li>
+                                <li>Platform: iOS + backend</li>
+                                <li>Status: Coming soon</li>
+                                <li>Launch: 2026</li>
+                            </ul>
+                            <div class="work-actions">
+                                <a class="text-link" href="/anagram">View public link</a>
+                                <a class="btn btn--small" href="/anagram">Open</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-    <div class="gallery">
-        <a target="_blank" href="whosonaux">
-            <img src="media/aux.png" alt="Whos On Aux" width="600" height="400">
-        </a>
-        <div class="desc">WhosOnAux</div>
-    </div>
-</div>
+        <section class="section" id="case-study">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Case study</p>
+                    <h2>Chipless: turning home poker into a smooth digital flow.</h2>
+                    <p class="lede">A closer look at the problem, the approach, and the results.</p>
+                </div>
+                <div class="case-grid">
+                    <div class="case-card reveal">
+                        <h3>Challenge</h3>
+                        <p>Keep poker night moving fast without chips, confusion, or manual blind tracking.</p>
+                    </div>
+                    <div class="case-card reveal">
+                        <h3>Approach</h3>
+                        <p>Designed a table-first UI with seat indicators, action logs, and automatic blind rotation.</p>
+                    </div>
+                    <div class="case-card reveal">
+                        <h3>Outcome</h3>
+                        <p>Launch planned for 2026. Early build focuses on clarity, speed, and group flow.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Project archive</p>
+                    <h2>Every build, from capstones to experimental apps.</h2>
+                    <p class="lede">A complete snapshot of the projects listed on my resume.</p>
+                </div>
+                <div class="project-grid">
+                    <article class="project-card reveal">
+                        <h3>Who's On Aux (2020)</h3>
+                        <p class="project-desc">Live-updating Spotify playlist app released on the App Store.</p>
+                        <p class="project-meta">Stack: Swift, UIKit, Spotify API</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>Anagram (In progress)</h3>
+                        <p class="project-desc">Real-time multiplayer word game with a socket-based backend.</p>
+                        <p class="project-meta">Stack: Swift, Node.js, sockets</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>FitFlow (2023)</h3>
+                        <p class="project-desc">A fitness social network for routines, goals, and photo sharing.</p>
+                        <p class="project-meta">Stack: React Native, DBMS, REST</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>Yalty Dashboard (2020)</h3>
+                        <p class="project-desc">Messaging notification dashboard with serverless infrastructure.</p>
+                        <p class="project-meta">Stack: AWS, Terraform, CI/CD, Node.js</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>Coin Collectors Assistant (2022)</h3>
+                        <p class="project-desc">Android app for meter routes, location lookups, and filtering by meter type.</p>
+                        <p class="project-meta">Stack: Android</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>Knowledgebase (2019)</h3>
+                        <p class="project-desc">Node.js Q&amp;A platform with posts, comments, messaging, and templated views.</p>
+                        <p class="project-meta">Stack: Node.js, MySQL, MVC</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>White Spot Allergy Filter (2019)</h3>
+                        <p class="project-desc">Menu filtering web app focused on allergies and DB performance.</p>
+                        <p class="project-meta">Stack: ASP.NET, C#, MySQL</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>ParkSafe (2019)</h3>
+                        <p class="project-desc">Android app that pulls crime data to assess parking safety.</p>
+                        <p class="project-meta">Stack: Android, REST API</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>Floral Trauma: MMST (2019)</h3>
+                        <p class="project-desc">Unity 3D capstone with multiplayer combat and a 23-person team.</p>
+                        <p class="project-meta">Stack: Unity, C#, Photon</p>
+                    </article>
+                    <article class="project-card reveal">
+                        <h3>McWiki (2017)</h3>
+                        <p class="project-desc">Dynamic game UI integration for in-game information display.</p>
+                        <p class="project-meta">Stack: Web UI integration</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
+        <section class="section" id="capabilities">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Capabilities</p>
+                    <h2>From concept to App Store-ready.</h2>
+                </div>
+                <div class="capabilities-grid">
+                    <div class="capability reveal">
+                        <h3>Product Strategy</h3>
+                        <p>Clarify the problem, define the journey, and map the MVP to real outcomes.</p>
+                    </div>
+                    <div class="capability reveal">
+                        <h3>Mobile + Web Engineering</h3>
+                        <p>Swift, SwiftUI, UIKit, React Native, Node.js, and ASP.NET builds with a focus on performance.</p>
+                    </div>
+                    <div class="capability reveal">
+                        <h3>Automation + Integration</h3>
+                        <p>CI/CD, serverless infrastructure, and API integrations that keep products reliable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="section" id="skills">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Skills</p>
+                    <h2>Tools, platforms, and strengths I use daily.</h2>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card reveal">
+                        <h3>Languages</h3>
+                        <p>Swift/SwiftUI, Objective-C, C#, Java, JavaScript, Python, C/C++, SQL, HTML/CSS, YAML, JSON, Bash</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Frameworks + Platforms</h3>
+                        <p>.NET/.NET Core, ASP.NET, Node.js, React Native, UIKit, Unity 3D, Photon</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Cloud + DevOps</h3>
+                        <p>AWS (Lambda, CodePipeline, EC2), Terraform, CI/CD, serverless, Git/GitHub</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Integration + APIs</h3>
+                        <p>REST, OpenAPI, SOAP; Azure Integration Services (Logic Apps, Service Bus, Event Grid, API Management)</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Databases</h3>
+                        <p>MySQL, MongoDB, SQL Server, Oracle, data modeling, ETL/ELT concepts</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Systems</h3>
+                        <p>Windows, macOS, Linux, command line, networking, hardware support</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Methods</h3>
+                        <p>Agile/Scrum, UI/UX design, documentation, analytics/data warehousing</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Strengths</h3>
+                        <p>Strategic, Restorative, Communication, Ideation, Command</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Soft skills</h3>
+                        <p>Communication, teamwork, adaptability, self-motivated, client-facing support</p>
+                    </div>
+                    <div class="skill-card reveal">
+                        <h3>Languages spoken</h3>
+                        <p>English (native/bilingual)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="process">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Process</p>
+                    <h2>High-craft delivery without the chaos.</h2>
+                </div>
+                <div class="process-grid">
+                    <div class="process-step reveal">
+                        <p class="step-number">01</p>
+                        <h3>Discover</h3>
+                        <p>Define the audience, the moment, and the success metrics.</p>
+                    </div>
+                    <div class="process-step reveal">
+                        <p class="step-number">02</p>
+                        <h3>Design</h3>
+                        <p>Wireframes and prototypes focused on ease, speed, and tone.</p>
+                    </div>
+                    <div class="process-step reveal">
+                        <p class="step-number">03</p>
+                        <h3>Build</h3>
+                        <p>SwiftUI implementations with stable architecture and clean handoffs.</p>
+                    </div>
+                    <div class="process-step reveal">
+                        <p class="step-number">04</p>
+                        <h3>Launch</h3>
+                        <p>Ship, measure, and iterate with a smart release plan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="container about-grid">
+                <div class="about-copy">
+                    <div class="section-head">
+                        <p class="eyebrow">About</p>
+                        <h2>Builder with a musician's ear and an athlete's rhythm.</h2>
+                    </div>
+                    <p>I started programming early and formalized it through AP CompSci A in high school. I completed a Computer Systems Technology diploma at BCIT in 2020 and am completing a Bachelor of Technology (expected May 2026).</p>
+                    <p>Previously, I worked at Provincial Health Services Authority as a technical analyst on Procura, a scheduling platform for at-home healthcare workers. I love making tools that remove friction and create calm.</p>
+                </div>
+                <div class="about-cards">
+                    <div class="about-card reveal">
+                        <h3>Values</h3>
+                        <ul>
+                            <li>Clarity over complexity</li>
+                            <li>Playful, not gimmicky</li>
+                            <li>Delight in the details</li>
+                        </ul>
+                    </div>
+                    <div class="about-card reveal">
+                        <h3>Signature wins</h3>
+                        <ul>
+                            <li>5,000+ downloads for Who's On Aux</li>
+                            <li>~20k impressions in 2023</li>
+                            <li>Led a 3-person sub-team on a 23-person Unity capstone</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Experience</p>
+                    <h2>Hands-on across software, operations, and client-facing work.</h2>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">Dec 2022 - Present</div>
+                        <div>
+                            <h3>City of Vancouver - Coin Collector / Meter Maintenance Technician</h3>
+                            <ul class="timeline-list">
+                                <li>Install and maintain parking meters and pay stations, including programming routines.</li>
+                                <li>Respond to 311 requests and follow security protocols and safe operating procedures.</li>
+                                <li>Operate across citywide upgrades with mechanical troubleshooting.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">2020 - Present</div>
+                        <div>
+                            <h3>Skyler Devlaming Consulting (SDev Consulting) - Software Developer</h3>
+                            <ul class="timeline-list">
+                                <li>Build client and personal software solutions with UI/UX design and end-to-end delivery.</li>
+                                <li>Mobile app developer focus since 2024 with product and feature definition.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">Jan 2020 - Jun 2020</div>
+                        <div>
+                            <h3>Provincial Health Services Authority - Technical Analyst</h3>
+                            <ul class="timeline-list">
+                                <li>Configured and initialized mobile devices for home-care staff.</li>
+                                <li>Provided end-user training, support, and automation improvements.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">2015 - 2016</div>
+                        <div>
+                            <h3>FreeGeek Vancouver - Recycling Assistant / Computer Disassembly Specialist</h3>
+                            <ul class="timeline-list">
+                                <li>Hardware sorting, disassembly, data erasure, and inventory allocation.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">May - Jul 2018</div>
+                        <div>
+                            <h3>Carina Investments LTD - Office Assistant</h3>
+                            <ul class="timeline-list">
+                                <li>Supported office operations and administrative tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal">
+                        <div class="timeline-year">Seasonal 2015 - 2018</div>
+                        <div>
+                            <h3>Elephant Enterprises - Manual Labor / Landscaping</h3>
+                            <ul class="timeline-list">
+                                <li>Seasonal field work and labor-intensive landscaping support.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item reveal placeholder">
+                        <div class="timeline-year">Dates needed</div>
+                        <div>
+                            <h3>FreshPrep - Delivery Driver</h3>
+                            <ul class="timeline-list">
+                                <li>Handled route work with handheld device support.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Education</p>
+                    <h2>Formal training and certifications.</h2>
+                </div>
+                <div class="education-grid">
+                    <div class="education-card reveal">
+                        <p class="education-range">Expected May 2026</p>
+                        <h3>British Columbia Institute of Technology (BCIT)</h3>
+                        <p>Bachelor of Technology, Burnaby</p>
+                    </div>
+                    <div class="education-card reveal">
+                        <p class="education-range">2018 - 2020</p>
+                        <h3>BCIT - Computer Systems Technology (Diploma)</h3>
+                        <p>Completed diploma focused on software development.</p>
+                    </div>
+                    <div class="education-card reveal">
+                        <p class="education-range">Feb 2021 - Jul 2022</p>
+                        <h3>Udemy Swift &amp; SwiftUI Certification</h3>
+                        <p>Focused on building modern iOS interfaces.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="container contact-grid">
+                <div>
+                    <p class="eyebrow">Contact</p>
+                    <h2>Ready to build something people love to use.</h2>
+                    <p class="lede">Tell me about the product, the timeline, and the impact you are aiming for.</p>
+                </div>
+                <div class="contact-card">
+                    <div>
+                        <p class="meta-label">Email</p>
+                        <a class="contact-link" href="/email">Email me</a>
+                    </div>
+                    <div>
+                        <p class="meta-label">GitHub</p>
+                        <a class="contact-link" href="/github">github.com/skylerdev</a>
+                    </div>
+                    <div>
+                        <p class="meta-label">LinkedIn</p>
+                        <a class="contact-link" href="/linkedin">linkedin.com/in/skylerdv</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <p>Skyler Devlaming - iOS developer, musician, athlete.</p>
+            <p>Copyright <span data-current-year></span> Skyler Devlaming. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
