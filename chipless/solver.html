@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chipless — Hand Solver</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --panel: #111827;
+            --border: #1f2937;
+            --accent: #7bd1ff;
+            --muted: #9ca3af;
+            --text: #e6edf3;
+            --winner: #22c55e;
+            --danger: #f87171;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+        header { padding: 48px 24px 32px; text-align: center; background: radial-gradient(circle at 20% 20%, rgba(64,160,255,0.15), transparent 35%), radial-gradient(circle at 80% 20%, rgba(255,126,95,0.15), transparent 35%), var(--bg); }
+        h1 { margin: 0; font-size: 36px; letter-spacing: -0.5px; }
+        p.lede { max-width: 780px; margin: 16px auto 0; color: var(--muted); font-size: 18px; }
+        main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+        section { margin-bottom: 32px; }
+        h2 { margin: 0 0 8px; font-size: 22px; }
+        .panel { padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: linear-gradient(150deg, rgba(17,24,39,0.9), rgba(12,18,28,0.95)); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+        .card-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+        .card-picker { display: flex; flex-direction: column; gap: 6px; }
+        .card-picker > span { color: var(--muted); font-size: 13px; }
+        select, input[type="text"] { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #0f172a; color: var(--text); font-size: 14px; }
+        select:focus, input[type="text"]:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+        .actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        button { background: var(--accent); color: #0b1220; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; transition: transform 120ms ease, box-shadow 120ms ease; }
+        button:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,0.35); }
+        button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .players { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .player-card { padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: #0f172a; display: flex; flex-direction: column; gap: 10px; }
+        .player-header { display: flex; gap: 8px; align-items: center; }
+        .player-header input { flex: 1; }
+        .pill { padding: 4px 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--border); color: var(--muted); display: inline-block; }
+        .status { color: var(--muted); margin: 6px 0 0; }
+        .status.error { color: var(--danger); }
+        .results-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .result-card { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: #0f172a; }
+        .result-card h3 { margin: 0 0 6px; font-size: 18px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .result-card .hand-name { color: var(--muted); font-size: 14px; margin: 0 0 4px; }
+        .winner-flag { color: var(--winner); font-weight: 700; font-size: 13px; }
+        .card-line { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; color: var(--text); font-size: 14px; }
+        .helper { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+        .header-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .card-row { display: flex; gap: 10px; align-items: flex-start; }
+        .suit-group { display: flex; flex-direction: column; gap: 6px; min-width: 120px; }
+        .suit { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; background: #0f172a; font-size: 16px; color: var(--muted); }
+        .suit input { accent-color: var(--accent); }
+        .suit.disabled { opacity: 0.4; cursor: not-allowed; }
+        .suit .icon { font-size: 18px; line-height: 1; }
+        .suit[data-suit="h"] .icon { color: #f87171; }
+        .suit[data-suit="d"] .icon { color: #fbbf24; }
+        .suit[data-suit="s"] .icon { color: #7bd1ff; }
+        .suit[data-suit="c"] .icon { color: #34d399; }
+        .rank-select { margin-top: 2px; }
+        @media (max-width: 640px) {
+            h1 { font-size: 30px; }
+            .header-actions { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Chipless — Hand Solver</h1>
+        <p class="lede">Compare Texas Hold'em hands with the built-in pokersolver library. Pick community cards, assign hole cards, add or remove players, and see which hand comes out ahead.</p>
+    </header>
+    <main>
+        <section class="panel">
+            <div class="header-actions">
+                <div>
+                    <h2>Community Cards</h2>
+                    <p class="helper">Select at least three board cards (flop/turn/river). Cards cannot be duplicated.</p>
+                </div>
+                <a class="pill" href="index.html">Back to Chipless</a>
+            </div>
+            <div class="card-grid" id="community-cards"></div>
+        </section>
+
+        <section class="panel">
+            <div class="header-actions">
+                <div>
+                    <h2>Players</h2>
+                    <p class="helper">Give each player two hole cards. Use the add/remove buttons to compare different matchups.</p>
+                </div>
+                <div class="actions">
+                    <button id="add-player">Add Player</button>
+                </div>
+            </div>
+            <div class="players" id="players"></div>
+        </section>
+
+        <section class="panel">
+            <div class="actions">
+                <button id="evaluate">Solve Hands</button>
+                <p id="status" class="status">Fill the board and hole cards, then solve to see the winner.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Results</h2>
+            <div id="results-grid" class="results-grid"></div>
+        </section>
+    </main>
+
+    <script src="pokersolver/pokersolver.js"></script>
+    <script>
+        (function() {
+            const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
+            const suits = [
+                { code: 's', name: 'Spades', icon: '♠' },
+                { code: 'h', name: 'Hearts', icon: '♥' },
+                { code: 'd', name: 'Diamonds', icon: '♦' },
+                { code: 'c', name: 'Clubs', icon: '♣' }
+            ];
+
+            const communityOrder = [
+                { id: 'flop1', label: 'Flop 1' },
+                { id: 'flop2', label: 'Flop 2' },
+                { id: 'flop3', label: 'Flop 3' },
+                { id: 'turn', label: 'Turn' },
+                { id: 'river', label: 'River' }
+            ];
+
+            const communityContainer = document.getElementById('community-cards');
+            const playersContainer = document.getElementById('players');
+            const resultsGrid = document.getElementById('results-grid');
+            const statusEl = document.getElementById('status');
+            const evaluateBtn = document.getElementById('evaluate');
+            const addPlayerBtn = document.getElementById('add-player');
+
+            let playerCount = 0;
+            let suitGroupId = 0;
+
+            function createRankSelect() {
+                const select = document.createElement('select');
+                select.className = 'rank-select';
+                const empty = document.createElement('option');
+                empty.value = '';
+                empty.textContent = 'Select rank';
+                select.appendChild(empty);
+                ranks.forEach(rank => {
+                    const opt = document.createElement('option');
+                    opt.value = rank;
+                    opt.textContent = rank;
+                    select.appendChild(opt);
+                });
+                select.addEventListener('change', () => {
+                    refreshDisabledOptions();
+                    clearResults();
+                });
+                return select;
+            }
+
+            function createSuitRadios() {
+                const groupName = 'suit-' + (++suitGroupId);
+                const container = document.createElement('div');
+                container.className = 'suit-group';
+                suits.forEach(suit => {
+                    const label = document.createElement('label');
+                    label.className = 'suit';
+                    label.dataset.suit = suit.code;
+                    label.title = suit.name;
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = groupName;
+                    radio.value = suit.code;
+                    radio.addEventListener('change', () => {
+                        refreshDisabledOptions();
+                        clearResults();
+                    });
+                    const icon = document.createElement('span');
+                    icon.className = 'icon';
+                    icon.textContent = suit.icon;
+                    label.appendChild(radio);
+                    label.appendChild(icon);
+                    container.appendChild(label);
+                });
+                return container;
+            }
+
+            function createCardPicker(labelText, data = {}) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'card-picker';
+                Object.entries(data).forEach(([key, val]) => wrapper.dataset[key] = val);
+                const title = document.createElement('span');
+                title.textContent = labelText;
+                const suitGroup = createSuitRadios();
+                const rankSelect = createRankSelect();
+                const row = document.createElement('div');
+                row.className = 'card-row';
+                row.appendChild(suitGroup);
+                row.appendChild(rankSelect);
+                wrapper.appendChild(title);
+                wrapper.appendChild(row);
+                return wrapper;
+            }
+
+            function buildCommunity() {
+                communityOrder.forEach(slot => {
+                    const picker = createCardPicker(slot.label, { slot: slot.id });
+                    communityContainer.appendChild(picker);
+                });
+            }
+
+            function addPlayer() {
+                playerCount += 1;
+                const card = document.createElement('div');
+                card.className = 'player-card';
+                card.dataset.playerId = String(playerCount);
+
+                const header = document.createElement('div');
+                header.className = 'player-header';
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.placeholder = 'Player ' + playerCount;
+                nameInput.value = 'Player ' + playerCount;
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'secondary';
+                removeBtn.type = 'button';
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', () => {
+                    card.remove();
+                    refreshDisabledOptions();
+                    clearResults();
+                });
+                header.appendChild(nameInput);
+                header.appendChild(removeBtn);
+
+                const holes = document.createElement('div');
+                holes.className = 'card-grid';
+                ['Hole 1', 'Hole 2'].forEach(label => {
+                    const picker = createCardPicker(label, { playerId: String(playerCount) });
+                    holes.appendChild(picker);
+                });
+
+                card.appendChild(header);
+                card.appendChild(holes);
+                playersContainer.appendChild(card);
+                refreshDisabledOptions();
+            }
+
+            function getAllPickers() {
+                return Array.from(document.querySelectorAll('.card-picker'));
+            }
+
+            function getPickerValue(picker) {
+                const rank = picker.querySelector('select.rank-select')?.value || '';
+                const suit = picker.querySelector('input[type="radio"]:checked')?.value || '';
+                return rank && suit ? rank + suit : '';
+            }
+
+            function refreshDisabledOptions() {
+                const used = new Set();
+                getAllPickers().forEach(p => {
+                    const val = getPickerValue(p);
+                    if (val) used.add(val);
+                });
+
+                getAllPickers().forEach(picker => {
+                    const currentVal = getPickerValue(picker);
+                    const rank = picker.querySelector('select.rank-select')?.value || '';
+                    const radios = picker.querySelectorAll('input[type="radio"]');
+                    radios.forEach(radio => {
+                        const optionVal = rank ? rank + radio.value : '';
+                        const conflict = optionVal && used.has(optionVal) && optionVal !== currentVal;
+                        radio.disabled = conflict;
+                        radio.parentElement.classList.toggle('disabled', conflict);
+                        if (conflict && radio.checked) {
+                            radio.checked = false;
+                        }
+                    });
+                });
+            }
+
+            function gatherCommunityCards() {
+                return communityOrder.map(slot => {
+                    const picker = communityContainer.querySelector('.card-picker[data-slot="' + slot.id + '"]');
+                    return picker ? getPickerValue(picker) : '';
+                }).filter(Boolean);
+            }
+
+            function gatherPlayers() {
+                const players = [];
+                playersContainer.querySelectorAll('.player-card').forEach(card => {
+                    const nameInput = card.querySelector('input[type="text"]');
+                    const picks = card.querySelectorAll('.card-picker');
+                    const hole = Array.from(picks).map(p => getPickerValue(p)).filter(Boolean);
+                    players.push({
+                        name: nameInput.value.trim() || nameInput.placeholder,
+                        cards: hole
+                    });
+                });
+                return players;
+            }
+
+            function clearResults(message) {
+                resultsGrid.innerHTML = '';
+                if (message) {
+                    statusEl.textContent = message;
+                    statusEl.classList.add('error');
+                } else {
+                    statusEl.textContent = 'Fill the board and hole cards, then solve to see the winner.';
+                    statusEl.classList.remove('error');
+                }
+            }
+
+            function evaluateHands() {
+                const board = gatherCommunityCards();
+                const players = gatherPlayers().filter(p => p.cards.length === 2);
+
+                if (players.length < 2) {
+                    clearResults('Add at least two players with both hole cards.');
+                    return;
+                }
+
+                if (board.length < 3) {
+                    clearResults('Select at least three community cards (flop, turn, or river).');
+                    return;
+                }
+
+                try {
+                    const solved = players.map(p => {
+                        const hand = Hand.solve(board.concat(p.cards));
+                        return { player: p.name, hand: hand };
+                    });
+
+                    const winners = Hand.winners(solved.map(s => s.hand));
+                    const winnerSet = new Set(winners);
+
+                    resultsGrid.innerHTML = '';
+                    solved.forEach(entry => {
+                        const isWinner = winnerSet.has(entry.hand);
+                        const resultCard = document.createElement('div');
+                        resultCard.className = 'result-card';
+                        const heading = document.createElement('h3');
+                        heading.textContent = entry.player;
+                        if (isWinner) {
+                            const flag = document.createElement('span');
+                            flag.className = 'winner-flag';
+                            flag.textContent = 'Winner';
+                            heading.appendChild(flag);
+                        }
+
+                        const handName = document.createElement('p');
+                        handName.className = 'hand-name';
+                        handName.textContent = entry.hand.name + ' — ' + entry.hand.descr;
+
+                        const cardsLine = document.createElement('p');
+                        cardsLine.className = 'card-line';
+                        cardsLine.textContent = 'Best cards: ' + entry.hand.cards.map(c => c.toString()).join(' ');
+
+                        resultCard.appendChild(heading);
+                        resultCard.appendChild(handName);
+                        resultCard.appendChild(cardsLine);
+                        resultsGrid.appendChild(resultCard);
+                    });
+
+                    if (winners.length === 1) {
+                        statusEl.textContent = winners[0].descr + ' wins it for ' + solved.find(s => s.hand === winners[0]).player + '.';
+                        statusEl.classList.remove('error');
+                    } else {
+                        const tiedNames = solved.filter(s => winnerSet.has(s.hand)).map(s => s.player).join(', ');
+                        statusEl.textContent = 'Tie: ' + tiedNames + ' share the pot (' + winners[0].descr + ').';
+                        statusEl.classList.remove('error');
+                    }
+                } catch (err) {
+                    clearResults('Could not solve the hands: ' + err.message);
+                }
+            }
+
+            buildCommunity();
+            addPlayer();
+            addPlayer();
+            evaluateBtn.addEventListener('click', evaluateHands);
+            addPlayerBtn.addEventListener('click', () => {
+                addPlayer();
+                clearResults();
+            });
+        })();
+    </script>
+</body>
+</html>
