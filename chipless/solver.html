@@ -8,381 +8,1016 @@
         :root {
             --bg: #0d1117;
             --panel: #111827;
+            --panel-alt: #0f172a;
             --border: #1f2937;
+            --border-light: #374151;
             --accent: #7bd1ff;
+            --accent-glow: rgba(123, 209, 255, 0.35);
             --muted: #9ca3af;
             --text: #e6edf3;
             --winner: #22c55e;
+            --winner-glow: rgba(34, 197, 94, 0.25);
             --danger: #f87171;
+            --warning: #fbbf24;
+            --heart: #f87171;
+            --diamond: #fbbf24;
+            --spade: #7bd1ff;
+            --club: #34d399;
+            --slot-w: 52px;
+            --slot-h: 72px;
+            --radius: 10px;
         }
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
-        header { padding: 48px 24px 32px; text-align: center; background: radial-gradient(circle at 20% 20%, rgba(64,160,255,0.15), transparent 35%), radial-gradient(circle at 80% 20%, rgba(255,126,95,0.15), transparent 35%), var(--bg); }
-        h1 { margin: 0; font-size: 36px; letter-spacing: -0.5px; }
-        p.lede { max-width: 780px; margin: 16px auto 0; color: var(--muted); font-size: 18px; }
-        main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
-        section { margin-bottom: 32px; }
-        h2 { margin: 0 0 8px; font-size: 22px; }
-        .panel { padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: linear-gradient(150deg, rgba(17,24,39,0.9), rgba(12,18,28,0.95)); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
-        .card-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-        .card-picker { display: flex; flex-direction: column; gap: 6px; }
-        .card-picker > span { color: var(--muted); font-size: 13px; }
-        select, input[type="text"] { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #0f172a; color: var(--text); font-size: 14px; }
-        select:focus, input[type="text"]:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
-        .actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        button { background: var(--accent); color: #0b1220; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; transition: transform 120ms ease, box-shadow 120ms ease; }
-        button:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,0.35); }
-        button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
-        .players { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-        .player-card { padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: #0f172a; display: flex; flex-direction: column; gap: 10px; }
-        .player-header { display: flex; gap: 8px; align-items: center; }
-        .player-header input { flex: 1; }
-        .pill { padding: 4px 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--border); color: var(--muted); display: inline-block; }
-        .status { color: var(--muted); margin: 6px 0 0; }
-        .status.error { color: var(--danger); }
-        .results-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        .result-card { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: #0f172a; }
-        .result-card h3 { margin: 0 0 6px; font-size: 18px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-        .result-card .hand-name { color: var(--muted); font-size: 14px; margin: 0 0 4px; }
-        .winner-flag { color: var(--winner); font-weight: 700; font-size: 13px; }
-        .card-line { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; color: var(--text); font-size: 14px; }
-        .helper { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
-        .header-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .card-row { display: flex; gap: 10px; align-items: flex-start; }
-        .suit-group { display: flex; flex-direction: column; gap: 6px; min-width: 120px; }
-        .suit { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; background: #0f172a; font-size: 16px; color: var(--muted); }
-        .suit input { accent-color: var(--accent); }
-        .suit.disabled { opacity: 0.4; cursor: not-allowed; }
-        .suit .icon { font-size: 18px; line-height: 1; }
-        .suit[data-suit="h"] .icon { color: #f87171; }
-        .suit[data-suit="d"] .icon { color: #fbbf24; }
-        .suit[data-suit="s"] .icon { color: #7bd1ff; }
-        .suit[data-suit="c"] .icon { color: #34d399; }
-        .rank-select { margin-top: 2px; }
-        @media (max-width: 640px) {
-            h1 { font-size: 30px; }
-            .header-actions { flex-direction: column; align-items: flex-start; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* ── Layout ── */
+        #app {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header"
+                "main"
+                "results";
+            min-height: 100vh;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .app-header {
+            grid-area: header;
+            padding: 32px 24px 20px;
+            text-align: center;
+            background: radial-gradient(circle at 20% 20%, rgba(64,160,255,0.12), transparent 35%),
+                        radial-gradient(circle at 80% 20%, rgba(255,126,95,0.12), transparent 35%),
+                        var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .app-header h1 { font-size: 28px; letter-spacing: -0.5px; }
+        .app-header .subtitle { color: var(--muted); font-size: 14px; margin-top: 4px; }
+        .app-header .nav-link {
+            display: inline-block; margin-top: 8px; color: var(--accent);
+            text-decoration: none; font-size: 13px; opacity: 0.8;
+        }
+        .app-header .nav-link:hover { opacity: 1; }
+
+        .main-col {
+            grid-area: main;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .results-row {
+            grid-area: results;
+            padding: 0 24px 48px;
+        }
+
+        /* ── Panels ── */
+        .panel {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: linear-gradient(150deg, rgba(17,24,39,0.9), rgba(12,18,28,0.95));
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ── Progress Bar ── */
+        .progress-bar {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
+        }
+
+        .progress-seg {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            transition: background 0.3s;
+        }
+
+        .progress-seg.filled { background: var(--accent); }
+        .progress-seg.warning { background: var(--warning); }
+
+        .status-text {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .status-text.ready { color: var(--winner); }
+        .status-text.error { color: var(--danger); }
+
+        /* ── Card Slots ── */
+        .slots-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .card-slot {
+            width: var(--slot-w);
+            height: var(--slot-h);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+            font-size: 13px;
+            user-select: none;
+            position: relative;
+        }
+
+        .card-slot:hover { transform: translateY(-2px); }
+
+        .card-slot.empty {
+            border: 2px dashed var(--border-light);
+            background: transparent;
+        }
+
+        .card-slot.empty.pulse {
+            animation: slotPulse 2s ease-in-out infinite;
+        }
+
+        .card-slot.active {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow), inset 0 0 8px var(--accent-glow);
+            background: rgba(123, 209, 255, 0.06);
+        }
+
+        .card-slot.filled {
+            border: 2px solid var(--border-light);
+            background: var(--panel-alt);
+        }
+
+        .card-slot.filled .slot-rank {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .card-slot.filled .slot-suit {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .card-slot .slot-label {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        @keyframes slotPulse {
+            0%, 100% { border-color: var(--border-light); }
+            50% { border-color: var(--border); box-shadow: 0 0 8px rgba(123, 209, 255, 0.1); }
+        }
+
+        @keyframes slotFill {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .card-slot.just-filled {
+            animation: slotFill 0.2s ease-out;
+        }
+
+        /* ── Player Panels ── */
+        .player-panel {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel-alt);
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .player-panel.incomplete {
+            border-color: var(--warning);
+            border-style: dashed;
+        }
+
+        .player-header {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .player-name-input {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .player-name-input:focus { border-color: var(--accent); }
+
+        .player-slots-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            background: var(--accent);
+            color: #0b1220;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s;
+        }
+
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+        .btn-sm { padding: 5px 10px; font-size: 12px; }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            opacity: 0.7;
+        }
+
+        .btn-danger:hover { opacity: 1; }
+
+        .player-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ── Deck Grid ── */
+        .deck-grid {
+            display: grid;
+            grid-template-columns: repeat(13, 1fr);
+            gap: 3px;
+        }
+
+        .deck-card {
+            aspect-ratio: 5 / 7;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            background: var(--panel-alt);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
+            font-size: 11px;
+            line-height: 1.1;
+            user-select: none;
+        }
+
+        .deck-card:hover:not(.used) {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .deck-card.used {
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .deck-card .dc-rank {
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .deck-card .dc-suit { font-size: 13px; }
+
+        .deck-card[data-suit="h"] .dc-suit { color: var(--heart); }
+        .deck-card[data-suit="d"] .dc-suit { color: var(--diamond); }
+        .deck-card[data-suit="s"] .dc-suit { color: var(--spade); }
+        .deck-card[data-suit="c"] .dc-suit { color: var(--club); }
+
+        .deck-card[data-suit="h"] .dc-rank { color: var(--heart); }
+        .deck-card[data-suit="d"] .dc-rank { color: var(--diamond); }
+        .deck-card[data-suit="s"] .dc-rank { color: var(--spade); }
+        .deck-card[data-suit="c"] .dc-rank { color: var(--club); }
+
+        /* ── Results ── */
+        .results-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .result-card {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--panel-alt);
+            animation: fadeInUp 0.3s ease-out both;
+        }
+
+        .result-card.winner {
+            border-color: var(--winner);
+            box-shadow: 0 0 20px var(--winner-glow);
+        }
+
+        .result-card h3 {
+            font-size: 17px;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .winner-badge {
+            background: var(--winner);
+            color: #0b1220;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-hand-name { color: var(--muted); font-size: 14px; margin-bottom: 2px; }
+
+        .result-cards {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+            font-size: 13px;
+            margin-top: 6px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .result-card-chip {
+            padding: 3px 7px;
+            border-radius: 5px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            font-size: 12px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Deck Overlay ── */
+        .deck-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .deck-overlay.open { display: flex; flex-direction: column; justify-content: flex-end; }
+
+        .deck-sheet {
+            background: var(--panel);
+            border-radius: 16px 16px 0 0;
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .deck-sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .deck-sheet-header h3 { font-size: 16px; }
+
+        .deck-sheet-close {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* suit color helpers for slots */
+        .suit-h { color: var(--heart); }
+        .suit-d { color: var(--diamond); }
+        .suit-s { color: var(--spade); }
+        .suit-c { color: var(--club); }
+
+        /* ── Mobile (< 768px) ── */
+        @media (max-width: 767px) {
+            .main-col { padding: 16px; }
+            .results-row { padding: 0 16px 48px; }
+
+            :root {
+                --slot-w: 44px;
+                --slot-h: 62px;
+            }
+
+            .deck-grid { gap: 2px; }
+            .deck-card { font-size: 10px; }
+            .deck-card .dc-rank { font-size: 10px; }
+            .deck-card .dc-suit { font-size: 11px; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Chipless — Hand Solver</h1>
-        <p class="lede">Compare Texas Hold'em hands with the built-in pokersolver library. Pick community cards, assign hole cards, add or remove players, and see which hand comes out ahead.</p>
-    </header>
-    <main>
-        <section class="panel">
-            <div class="header-actions">
-                <div>
-                    <h2>Community Cards</h2>
-                    <p class="helper">Select at least three board cards (flop/turn/river). Cards cannot be duplicated.</p>
-                </div>
-                <a class="pill" href="index.html">Back to Chipless</a>
-            </div>
-            <div class="card-grid" id="community-cards"></div>
-        </section>
-
-        <section class="panel">
-            <div class="header-actions">
-                <div>
-                    <h2>Players</h2>
-                    <p class="helper">Give each player two hole cards. Use the add/remove buttons to compare different matchups.</p>
-                </div>
-                <div class="actions">
-                    <button id="add-player">Add Player</button>
-                </div>
-            </div>
-            <div class="players" id="players"></div>
-        </section>
-
-        <section class="panel">
-            <div class="actions">
-                <button id="evaluate">Solve Hands</button>
-                <p id="status" class="status">Fill the board and hole cards, then solve to see the winner.</p>
-            </div>
-        </section>
-
-        <section class="panel">
-            <h2>Results</h2>
-            <div id="results-grid" class="results-grid"></div>
-        </section>
-    </main>
-
+    <div id="app"></div>
     <script src="pokersolver/pokersolver.js"></script>
     <script>
-        (function() {
-            const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
-            const suits = [
-                { code: 's', name: 'Spades', icon: '♠' },
-                { code: 'h', name: 'Hearts', icon: '♥' },
-                { code: 'd', name: 'Diamonds', icon: '♦' },
-                { code: 'c', name: 'Clubs', icon: '♣' }
-            ];
+    (function() {
+        'use strict';
 
-            const communityOrder = [
-                { id: 'flop1', label: 'Flop 1' },
-                { id: 'flop2', label: 'Flop 2' },
-                { id: 'flop3', label: 'Flop 3' },
-                { id: 'turn', label: 'Turn' },
-                { id: 'river', label: 'River' }
-            ];
+        // ── Constants ──
+        const RANKS = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
+        const SUITS = [
+            { code: 'h', name: 'Hearts', icon: '\u2665' },
+            { code: 'd', name: 'Diamonds', icon: '\u2666' },
+            { code: 'c', name: 'Clubs', icon: '\u2663' },
+            { code: 's', name: 'Spades', icon: '\u2660' }
+        ];
+        const SUIT_MAP = {};
+        SUITS.forEach(s => SUIT_MAP[s.code] = s);
 
-            const communityContainer = document.getElementById('community-cards');
-            const playersContainer = document.getElementById('players');
-            const resultsGrid = document.getElementById('results-grid');
-            const statusEl = document.getElementById('status');
-            const evaluateBtn = document.getElementById('evaluate');
-            const addPlayerBtn = document.getElementById('add-player');
-
-            let playerCount = 0;
-            let suitGroupId = 0;
-
-            function createRankSelect() {
-                const select = document.createElement('select');
-                select.className = 'rank-select';
-                const empty = document.createElement('option');
-                empty.value = '';
-                empty.textContent = 'Select rank';
-                select.appendChild(empty);
-                ranks.forEach(rank => {
-                    const opt = document.createElement('option');
-                    opt.value = rank;
-                    opt.textContent = rank;
-                    select.appendChild(opt);
-                });
-                select.addEventListener('change', () => {
-                    refreshDisabledOptions();
-                    clearResults();
-                });
-                return select;
-            }
-
-            function createSuitRadios() {
-                const groupName = 'suit-' + (++suitGroupId);
-                const container = document.createElement('div');
-                container.className = 'suit-group';
-                suits.forEach(suit => {
-                    const label = document.createElement('label');
-                    label.className = 'suit';
-                    label.dataset.suit = suit.code;
-                    label.title = suit.name;
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = groupName;
-                    radio.value = suit.code;
-                    radio.addEventListener('change', () => {
-                        refreshDisabledOptions();
-                        clearResults();
-                    });
-                    const icon = document.createElement('span');
-                    icon.className = 'icon';
-                    icon.textContent = suit.icon;
-                    label.appendChild(radio);
-                    label.appendChild(icon);
-                    container.appendChild(label);
-                });
-                return container;
-            }
-
-            function createCardPicker(labelText, data = {}) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'card-picker';
-                Object.entries(data).forEach(([key, val]) => wrapper.dataset[key] = val);
-                const title = document.createElement('span');
-                title.textContent = labelText;
-                const suitGroup = createSuitRadios();
-                const rankSelect = createRankSelect();
-                const row = document.createElement('div');
-                row.className = 'card-row';
-                row.appendChild(suitGroup);
-                row.appendChild(rankSelect);
-                wrapper.appendChild(title);
-                wrapper.appendChild(row);
-                return wrapper;
-            }
-
-            function buildCommunity() {
-                communityOrder.forEach(slot => {
-                    const picker = createCardPicker(slot.label, { slot: slot.id });
-                    communityContainer.appendChild(picker);
-                });
-            }
-
-            function addPlayer() {
-                playerCount += 1;
-                const card = document.createElement('div');
-                card.className = 'player-card';
-                card.dataset.playerId = String(playerCount);
-
-                const header = document.createElement('div');
-                header.className = 'player-header';
-                const nameInput = document.createElement('input');
-                nameInput.type = 'text';
-                nameInput.placeholder = 'Player ' + playerCount;
-                nameInput.value = 'Player ' + playerCount;
-                const removeBtn = document.createElement('button');
-                removeBtn.className = 'secondary';
-                removeBtn.type = 'button';
-                removeBtn.textContent = 'Remove';
-                removeBtn.addEventListener('click', () => {
-                    card.remove();
-                    refreshDisabledOptions();
-                    clearResults();
-                });
-                header.appendChild(nameInput);
-                header.appendChild(removeBtn);
-
-                const holes = document.createElement('div');
-                holes.className = 'card-grid';
-                ['Hole 1', 'Hole 2'].forEach(label => {
-                    const picker = createCardPicker(label, { playerId: String(playerCount) });
-                    holes.appendChild(picker);
-                });
-
-                card.appendChild(header);
-                card.appendChild(holes);
-                playersContainer.appendChild(card);
-                refreshDisabledOptions();
-            }
-
-            function getAllPickers() {
-                return Array.from(document.querySelectorAll('.card-picker'));
-            }
-
-            function getPickerValue(picker) {
-                const rank = picker.querySelector('select.rank-select')?.value || '';
-                const suit = picker.querySelector('input[type="radio"]:checked')?.value || '';
-                return rank && suit ? rank + suit : '';
-            }
-
-            function refreshDisabledOptions() {
-                const used = new Set();
-                getAllPickers().forEach(p => {
-                    const val = getPickerValue(p);
-                    if (val) used.add(val);
-                });
-
-                getAllPickers().forEach(picker => {
-                    const currentVal = getPickerValue(picker);
-                    const rank = picker.querySelector('select.rank-select')?.value || '';
-                    const radios = picker.querySelectorAll('input[type="radio"]');
-                    radios.forEach(radio => {
-                        const optionVal = rank ? rank + radio.value : '';
-                        const conflict = optionVal && used.has(optionVal) && optionVal !== currentVal;
-                        radio.disabled = conflict;
-                        radio.parentElement.classList.toggle('disabled', conflict);
-                        if (conflict && radio.checked) {
-                            radio.checked = false;
-                        }
-                    });
-                });
-            }
-
-            function gatherCommunityCards() {
-                return communityOrder.map(slot => {
-                    const picker = communityContainer.querySelector('.card-picker[data-slot="' + slot.id + '"]');
-                    return picker ? getPickerValue(picker) : '';
-                }).filter(Boolean);
-            }
-
-            function gatherPlayers() {
-                const players = [];
-                playersContainer.querySelectorAll('.player-card').forEach(card => {
-                    const nameInput = card.querySelector('input[type="text"]');
-                    const picks = card.querySelectorAll('.card-picker');
-                    const hole = Array.from(picks).map(p => getPickerValue(p)).filter(Boolean);
-                    players.push({
-                        name: nameInput.value.trim() || nameInput.placeholder,
-                        cards: hole
-                    });
-                });
-                return players;
-            }
-
-            function clearResults(message) {
-                resultsGrid.innerHTML = '';
-                if (message) {
-                    statusEl.textContent = message;
-                    statusEl.classList.add('error');
-                } else {
-                    statusEl.textContent = 'Fill the board and hole cards, then solve to see the winner.';
-                    statusEl.classList.remove('error');
-                }
-            }
-
-            function evaluateHands() {
-                const board = gatherCommunityCards();
-                const players = gatherPlayers().filter(p => p.cards.length === 2);
-
-                if (players.length < 2) {
-                    clearResults('Add at least two players with both hole cards.');
-                    return;
-                }
-
-                if (board.length < 3) {
-                    clearResults('Select at least three community cards (flop, turn, or river).');
-                    return;
-                }
-
-                try {
-                    const solved = players.map(p => {
-                        const hand = Hand.solve(board.concat(p.cards));
-                        return { player: p.name, hand: hand };
-                    });
-
-                    const winners = Hand.winners(solved.map(s => s.hand));
-                    const winnerSet = new Set(winners);
-
-                    resultsGrid.innerHTML = '';
-                    solved.forEach(entry => {
-                        const isWinner = winnerSet.has(entry.hand);
-                        const resultCard = document.createElement('div');
-                        resultCard.className = 'result-card';
-                        const heading = document.createElement('h3');
-                        heading.textContent = entry.player;
-                        if (isWinner) {
-                            const flag = document.createElement('span');
-                            flag.className = 'winner-flag';
-                            flag.textContent = 'Winner';
-                            heading.appendChild(flag);
-                        }
-
-                        const handName = document.createElement('p');
-                        handName.className = 'hand-name';
-                        handName.textContent = entry.hand.name + ' — ' + entry.hand.descr;
-
-                        const cardsLine = document.createElement('p');
-                        cardsLine.className = 'card-line';
-                        cardsLine.textContent = 'Best cards: ' + entry.hand.cards.map(c => c.toString()).join(' ');
-
-                        resultCard.appendChild(heading);
-                        resultCard.appendChild(handName);
-                        resultCard.appendChild(cardsLine);
-                        resultsGrid.appendChild(resultCard);
-                    });
-
-                    if (winners.length === 1) {
-                        statusEl.textContent = winners[0].descr + ' wins it for ' + solved.find(s => s.hand === winners[0]).player + '.';
-                        statusEl.classList.remove('error');
-                    } else {
-                        const tiedNames = solved.filter(s => winnerSet.has(s.hand)).map(s => s.player).join(', ');
-                        statusEl.textContent = 'Tie: ' + tiedNames + ' share the pot (' + winners[0].descr + ').';
-                        statusEl.classList.remove('error');
-                    }
-                } catch (err) {
-                    clearResults('Could not solve the hands: ' + err.message);
-                }
-            }
-
-            buildCommunity();
-            addPlayer();
-            addPlayer();
-            evaluateBtn.addEventListener('click', evaluateHands);
-            addPlayerBtn.addEventListener('click', () => {
-                addPlayer();
-                clearResults();
+        const DECK = [];
+        SUITS.forEach(suit => {
+            RANKS.forEach(rank => {
+                DECK.push(rank + suit.code);
             });
-        })();
+        });
+
+        const COMMUNITY_LABELS = ['Flop 1','Flop 2','Flop 3','Turn','River'];
+        const MIN_PLAYERS = 2;
+        const MAX_PLAYERS = 10;
+
+        // ── State ──
+        let state = {
+            community: [null, null, null, null, null],    // 5 slots, each null or "Ah"
+            players: [
+                { name: 'Player 1', cards: [null, null] },
+                { name: 'Player 2', cards: [null, null] }
+            ],
+            activeSlot: null,   // { type: 'community', index: 0 } or { type: 'player', playerIdx: 0, cardIdx: 0 }
+            results: null,      // null or { entries: [...], winners: [...], error: string }
+            deckOpen: false,    // mobile bottom-sheet
+            nextPlayerId: 3
+        };
+
+        function setState(patch) {
+            Object.assign(state, patch);
+            tryAutoSolve();
+            render();
+        }
+
+        // ── Helpers ──
+        function usedCards() {
+            const used = new Set();
+            state.community.forEach(c => { if (c) used.add(c); });
+            state.players.forEach(p => p.cards.forEach(c => { if (c) used.add(c); }));
+            return used;
+        }
+
+        function getSlotValue(slot) {
+            if (!slot) return null;
+            if (slot.type === 'community') return state.community[slot.index];
+            if (slot.type === 'player') return state.players[slot.playerIdx].cards[slot.cardIdx];
+            return null;
+        }
+
+        function setSlotValue(slot, value) {
+            if (slot.type === 'community') {
+                state.community[slot.index] = value;
+            } else if (slot.type === 'player') {
+                state.players[slot.playerIdx].cards[slot.cardIdx] = value;
+            }
+        }
+
+        function slotsMatch(a, b) {
+            if (!a || !b) return false;
+            if (a.type !== b.type) return false;
+            if (a.type === 'community') return a.index === b.index;
+            return a.playerIdx === b.playerIdx && a.cardIdx === b.cardIdx;
+        }
+
+        function findNextEmptySlot(afterSlot) {
+            const allSlots = [];
+            for (let i = 0; i < 5; i++) allSlots.push({ type: 'community', index: i });
+            state.players.forEach((_, pi) => {
+                allSlots.push({ type: 'player', playerIdx: pi, cardIdx: 0 });
+                allSlots.push({ type: 'player', playerIdx: pi, cardIdx: 1 });
+            });
+
+            let startIdx = 0;
+            if (afterSlot) {
+                const idx = allSlots.findIndex(s => slotsMatch(s, afterSlot));
+                if (idx >= 0) startIdx = idx + 1;
+            }
+
+            // Search from after current slot, then wrap around
+            for (let i = 0; i < allSlots.length; i++) {
+                const s = allSlots[(startIdx + i) % allSlots.length];
+                if (!getSlotValue(s)) return s;
+            }
+            return null;
+        }
+
+        function displayRank(rank) {
+            return rank === 'T' ? '10' : rank;
+        }
+
+        function cardDisplay(card) {
+            if (!card) return null;
+            const rank = card[0];
+            const suit = card[1];
+            return { rank: displayRank(rank), suit: SUIT_MAP[suit].icon, suitCode: suit };
+        }
+
+        // ── Auto-Solve ──
+        function tryAutoSolve() {
+            const communityFilled = state.community.filter(Boolean);
+            if (communityFilled.length < 3) {
+                state.results = null;
+                return;
+            }
+
+            const eligiblePlayers = state.players.filter(p => p.cards[0] && p.cards[1]);
+            if (eligiblePlayers.length < 2) {
+                state.results = null;
+                return;
+            }
+
+            try {
+                const entries = eligiblePlayers.map(p => {
+                    const hand = Hand.solve(communityFilled.concat(p.cards));
+                    return { name: p.name, hand };
+                });
+
+                const winners = Hand.winners(entries.map(e => e.hand));
+                const winnerSet = new Set(winners);
+
+                state.results = {
+                    entries: entries.map(e => ({
+                        name: e.name,
+                        handName: e.hand.name,
+                        descr: e.hand.descr,
+                        cards: e.hand.cards.map(c => c.toString()),
+                        isWinner: winnerSet.has(e.hand)
+                    })),
+                    error: null
+                };
+            } catch (err) {
+                state.results = { entries: [], error: err.message };
+            }
+        }
+
+        // ── Status computation ──
+        function getStatus() {
+            const commFilled = state.community.filter(Boolean).length;
+            const commNeeded = Math.max(0, 3 - commFilled);
+
+            const eligibleCount = state.players.filter(p => p.cards[0] && p.cards[1]).length;
+            const incompletePlayers = state.players.filter(p => !(p.cards[0] && p.cards[1]));
+
+            const totalFilledCards = commFilled + state.players.reduce((s, p) => s + p.cards.filter(Boolean).length, 0);
+            const minCards = 3 + 2 * 2; // 3 community + 2 players x 2 hole = 7
+
+            if (commNeeded > 0) {
+                return { text: `Need ${commNeeded} more community card${commNeeded > 1 ? 's' : ''} (minimum 3)`, type: 'normal', filled: totalFilledCards, needed: minCards };
+            }
+
+            if (eligibleCount < 2) {
+                const playersNeeding = 2 - eligibleCount;
+                if (incompletePlayers.length > 0) {
+                    const names = incompletePlayers.slice(0, 2).map(p => p.name).join(', ');
+                    return { text: `${names} need${incompletePlayers.length === 1 ? 's' : ''} hole cards`, type: 'normal', filled: totalFilledCards, needed: minCards };
+                }
+                return { text: `Need ${playersNeeding} more player${playersNeeding > 1 ? 's' : ''} with hole cards`, type: 'normal', filled: totalFilledCards, needed: minCards };
+            }
+
+            if (state.results && state.results.error) {
+                return { text: 'Error: ' + state.results.error, type: 'error', filled: totalFilledCards, needed: minCards };
+            }
+
+            return { text: 'Results calculated below', type: 'ready', filled: totalFilledCards, needed: minCards };
+        }
+
+        // ── Render ──
+        function render() {
+            const app = document.getElementById('app');
+            const status = getStatus();
+            const used = usedCards();
+
+            // Preserve focus info
+            const activeEl = document.activeElement;
+            let focusInfo = null;
+            if (activeEl && activeEl.dataset && activeEl.dataset.playerNameIdx !== undefined) {
+                focusInfo = { type: 'playerName', idx: parseInt(activeEl.dataset.playerNameIdx), selStart: activeEl.selectionStart, selEnd: activeEl.selectionEnd };
+            }
+
+            app.innerHTML = renderHeader() +
+                '<div class="main-col">' +
+                    renderProgress(status) +
+                    renderCommunity() +
+                    renderPlayers() +
+                '</div>' +
+                '<div class="results-row">' +
+                    renderResults() +
+                '</div>' +
+                renderDeckOverlay(used);
+
+            // Restore focus
+            if (focusInfo && focusInfo.type === 'playerName') {
+                const input = app.querySelector(`[data-player-name-idx="${focusInfo.idx}"]`);
+                if (input) {
+                    input.focus();
+                    input.setSelectionRange(focusInfo.selStart, focusInfo.selEnd);
+                }
+            }
+        }
+
+        function renderHeader() {
+            return `<div class="app-header">
+                <h1>Chipless — Hand Solver</h1>
+                <div class="subtitle">Texas Hold'em hand comparison — tap any card slot to pick a card</div>
+                <a class="nav-link" href="index.html">← Back to Chipless</a>
+            </div>`;
+        }
+
+        function renderProgress(status) {
+            const segs = [];
+            const total = Math.max(status.needed, status.filled);
+            for (let i = 0; i < total; i++) {
+                const cls = i < status.filled ? 'progress-seg filled' : 'progress-seg';
+                segs.push(`<div class="${cls}"></div>`);
+            }
+            const statusClass = status.type === 'ready' ? 'status-text ready' :
+                                status.type === 'error' ? 'status-text error' : 'status-text';
+            return `<div class="progress-bar">${segs.join('')}</div>
+                    <div class="${statusClass}">${status.text}</div>`;
+        }
+
+        function renderCommunity() {
+            let slots = '';
+            for (let i = 0; i < 5; i++) {
+                slots += renderSlot({ type: 'community', index: i }, state.community[i], COMMUNITY_LABELS[i]);
+            }
+            return `<div class="panel">
+                <div class="panel-title">Community Cards</div>
+                <div class="slots-row">${slots}</div>
+            </div>`;
+        }
+
+        function renderSlot(slot, value, label) {
+            const isActive = slotsMatch(state.activeSlot, slot);
+            const cd = value ? cardDisplay(value) : null;
+
+            let cls = 'card-slot';
+            if (value) {
+                cls += ' filled';
+            } else {
+                cls += ' empty';
+                if (!isActive) cls += ' pulse';
+            }
+            if (isActive) cls += ' active';
+
+            const dataAttrs = `data-slot-type="${slot.type}" data-slot-index="${slot.index !== undefined ? slot.index : ''}" data-slot-player="${slot.playerIdx !== undefined ? slot.playerIdx : ''}" data-slot-card="${slot.cardIdx !== undefined ? slot.cardIdx : ''}"`;
+
+            if (cd) {
+                return `<div class="${cls}" ${dataAttrs} role="button" tabindex="0" aria-label="${label}: ${cd.rank} of ${SUIT_MAP[cd.suitCode].name}">
+                    <span class="slot-rank suit-${cd.suitCode}">${cd.rank}</span>
+                    <span class="slot-suit suit-${cd.suitCode}">${cd.suit}</span>
+                </div>`;
+            }
+
+            return `<div class="${cls}" ${dataAttrs} role="button" tabindex="0" aria-label="${label}: empty">
+                <span class="slot-label">${label}</span>
+            </div>`;
+        }
+
+        function renderPlayers() {
+            let html = '';
+            state.players.forEach((player, pi) => {
+                const incomplete = !(player.cards[0] && player.cards[1]);
+                const panelCls = 'player-panel' + (incomplete ? ' incomplete' : '');
+                let slots = '';
+                slots += renderSlot({ type: 'player', playerIdx: pi, cardIdx: 0 }, player.cards[0], 'Hole 1');
+                slots += renderSlot({ type: 'player', playerIdx: pi, cardIdx: 1 }, player.cards[1], 'Hole 2');
+
+                const canRemove = state.players.length > MIN_PLAYERS;
+
+                html += `<div class="${panelCls}">
+                    <div class="player-header">
+                        <input class="player-name-input" type="text" value="${escHtml(player.name)}" data-player-name-idx="${pi}" placeholder="Player ${pi + 1}">
+                        ${canRemove ? `<button class="btn btn-danger btn-sm" data-remove-player="${pi}">Remove</button>` : ''}
+                    </div>
+                    <div class="player-slots-label">Hole Cards</div>
+                    <div class="slots-row">${slots}</div>
+                </div>`;
+            });
+
+            const canAdd = state.players.length < MAX_PLAYERS;
+
+            html += `<div class="player-actions">
+                ${canAdd ? '<button class="btn btn-sm" data-action="add-player">Add Player</button>' : ''}
+                <button class="btn btn-secondary btn-sm" data-action="reset">Reset All</button>
+            </div>`;
+
+            return `<div class="panel">
+                <div class="panel-title">Players</div>
+                ${html}
+            </div>`;
+        }
+
+        function renderDeckGrid(used) {
+            let html = '<div class="deck-grid">';
+            // Rows: suits (h, d, c, s), Columns: ranks (A-2)
+            SUITS.forEach(suit => {
+                RANKS.forEach(rank => {
+                    const card = rank + suit.code;
+                    const isUsed = used.has(card);
+                    const cls = 'deck-card' + (isUsed ? ' used' : '');
+                    html += `<div class="${cls}" data-deck-card="${card}" data-suit="${suit.code}" role="button" tabindex="${isUsed ? -1 : 0}" aria-label="${displayRank(rank)} of ${suit.name}">
+                        <span class="dc-rank">${displayRank(rank)}</span>
+                        <span class="dc-suit">${suit.icon}</span>
+                    </div>`;
+                });
+            });
+            html += '</div>';
+            return html;
+        }
+
+        function renderResults() {
+            if (!state.results) return '';
+            if (state.results.error) {
+                return `<div class="panel"><div class="status-text error">Error: ${escHtml(state.results.error)}</div></div>`;
+            }
+            if (!state.results.entries.length) return '';
+
+            let html = '<div class="panel"><div class="panel-title">Results</div><div class="results-grid">';
+            state.results.entries.forEach((e, i) => {
+                const cls = 'result-card' + (e.isWinner ? ' winner' : '');
+                const cardsHtml = e.cards.map(c => {
+                    const suit = c.slice(-1);
+                    const rank = c.slice(0, -1);
+                    return `<span class="result-card-chip suit-${suit}">${rank}${SUIT_MAP[suit].icon}</span>`;
+                }).join('');
+                html += `<div class="${cls}" style="animation-delay: ${i * 0.05}s">
+                    <h3>${escHtml(e.name)} ${e.isWinner ? '<span class="winner-badge">Winner</span>' : ''}</h3>
+                    <div class="result-hand-name">${escHtml(e.handName)} — ${escHtml(e.descr)}</div>
+                    <div class="result-cards">${cardsHtml}</div>
+                </div>`;
+            });
+            html += '</div></div>';
+            return html;
+        }
+
+        function activeSlotLabel() {
+            const s = state.activeSlot;
+            if (!s) return '';
+            if (s.type === 'community') return COMMUNITY_LABELS[s.index];
+            return state.players[s.playerIdx].name + ' — Hole ' + (s.cardIdx + 1);
+        }
+
+        function renderDeckOverlay(used) {
+            if (!state.deckOpen) return '<div class="deck-overlay"></div>';
+            const label = activeSlotLabel();
+            return `<div class="deck-overlay open">
+                <div class="deck-sheet">
+                    <div class="deck-sheet-header">
+                        <h3>Select a Card${label ? ' <span style="color:var(--muted);font-weight:400;font-size:14px">— ' + escHtml(label) + '</span>' : ''}</h3>
+                        <button class="deck-sheet-close" data-action="close-deck" aria-label="Close deck">\u00d7</button>
+                    </div>
+                    ${renderDeckGrid(used)}
+                </div>
+            </div>`;
+        }
+
+        function escHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ── Event Delegation ──
+        document.getElementById('app').addEventListener('click', function(e) {
+            const target = e.target;
+
+            // Deck card click (check both inline deck and overlay deck)
+            const deckCard = target.closest('[data-deck-card]');
+            if (deckCard && !deckCard.classList.contains('used')) {
+                handleDeckCardClick(deckCard.dataset.deckCard);
+                return;
+            }
+
+            // Card slot click
+            const slot = target.closest('.card-slot');
+            if (slot) {
+                handleSlotClick(parseSlotData(slot));
+                return;
+            }
+
+            // Remove player
+            const removeBtn = target.closest('[data-remove-player]');
+            if (removeBtn) {
+                handleRemovePlayer(parseInt(removeBtn.dataset.removePlayer));
+                return;
+            }
+
+            // Close deck overlay — only if clicking the backdrop itself, not its children
+            const overlay = target.closest('.deck-overlay');
+            if (overlay && target === overlay) {
+                setState({ deckOpen: false });
+                return;
+            }
+
+            // Action buttons
+            const actionBtn = target.closest('[data-action]');
+            if (actionBtn) {
+                const action = actionBtn.dataset.action;
+                if (action === 'add-player') handleAddPlayer();
+                else if (action === 'reset') handleReset();
+                else if (action === 'close-deck') setState({ deckOpen: false });
+                return;
+            }
+        });
+
+        // Input handling for player names
+        document.getElementById('app').addEventListener('input', function(e) {
+            const target = e.target;
+            if (target.dataset.playerNameIdx !== undefined) {
+                const idx = parseInt(target.dataset.playerNameIdx);
+                if (idx >= 0 && idx < state.players.length) {
+                    state.players[idx].name = target.value || ('Player ' + (idx + 1));
+                    // Don't re-render on name input to preserve focus
+                    tryAutoSolve();
+                    // Only update results if they exist
+                    if (state.results) {
+                        const resultsRow = document.querySelector('.results-row');
+                        if (resultsRow) resultsRow.innerHTML = renderResults();
+                    }
+                }
+            }
+        });
+
+        // Keyboard accessibility
+        document.getElementById('app').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const target = e.target;
+                if (target.classList.contains('card-slot') || target.classList.contains('deck-card')) {
+                    e.preventDefault();
+                    target.click();
+                }
+            }
+            if (e.key === 'Escape') {
+                if (state.deckOpen) {
+                    setState({ deckOpen: false });
+                } else if (state.activeSlot) {
+                    setState({ activeSlot: null });
+                }
+            }
+        });
+
+        // Context menu to clear a slot
+        document.getElementById('app').addEventListener('contextmenu', function(e) {
+            const slot = e.target.closest('.card-slot');
+            if (slot && slot.classList.contains('filled')) {
+                e.preventDefault();
+                const slotData = parseSlotData(slot);
+                setSlotValue(slotData, null);
+                setState({ activeSlot: slotData, deckOpen: true });
+            }
+        });
+
+        // ── Event Handlers ──
+        function parseSlotData(el) {
+            const type = el.dataset.slotType;
+            if (type === 'community') {
+                return { type: 'community', index: parseInt(el.dataset.slotIndex) };
+            }
+            return { type: 'player', playerIdx: parseInt(el.dataset.slotPlayer), cardIdx: parseInt(el.dataset.slotCard) };
+        }
+
+        function handleSlotClick(slot) {
+            const currentValue = getSlotValue(slot);
+            const isActive = slotsMatch(state.activeSlot, slot);
+
+            if (isActive && currentValue) {
+                // Clicking the same active filled slot clears it
+                setSlotValue(slot, null);
+                setState({ activeSlot: slot, deckOpen: true });
+            } else {
+                // Select this slot as active and open deck
+                setState({ activeSlot: slot, deckOpen: true });
+            }
+        }
+
+        function handleDeckCardClick(card) {
+            if (!state.activeSlot) {
+                // If no active slot, find first empty slot
+                const first = findNextEmptySlot(null);
+                if (!first) return;
+                state.activeSlot = first;
+            }
+
+            // If active slot already has a value, return that card first
+            const currentVal = getSlotValue(state.activeSlot);
+            if (currentVal) {
+                setSlotValue(state.activeSlot, null);
+            }
+
+            setSlotValue(state.activeSlot, card);
+            const justFilled = state.activeSlot;
+
+            // Auto-advance to next empty slot
+            const next = findNextEmptySlot(justFilled);
+            state.activeSlot = next;
+
+            // Keep deck open if there's a next empty slot, close if all filled
+            state.deckOpen = !!next;
+
+            setState({});
+
+            // Brief animation class on filled slot
+            requestAnimationFrame(() => {
+                const filledEl = document.querySelector(`.card-slot[data-slot-type="${justFilled.type}"][data-slot-index="${justFilled.index !== undefined ? justFilled.index : ''}"][data-slot-player="${justFilled.playerIdx !== undefined ? justFilled.playerIdx : ''}"][data-slot-card="${justFilled.cardIdx !== undefined ? justFilled.cardIdx : ''}"]`);
+                if (filledEl) {
+                    filledEl.classList.add('just-filled');
+                    setTimeout(() => filledEl.classList.remove('just-filled'), 200);
+                }
+            });
+        }
+
+        function handleAddPlayer() {
+            const newPlayer = { name: 'Player ' + state.nextPlayerId, cards: [null, null] };
+            state.players.push(newPlayer);
+            const newIdx = state.players.length - 1;
+            setState({ nextPlayerId: state.nextPlayerId + 1, activeSlot: { type: 'player', playerIdx: newIdx, cardIdx: 0 }, deckOpen: true });
+        }
+
+        function handleRemovePlayer(idx) {
+            if (state.players.length <= MIN_PLAYERS) return;
+            // Return cards to deck (just clear them)
+            state.players.splice(idx, 1);
+
+            // Fix activeSlot if it references a removed or shifted player
+            if (state.activeSlot && state.activeSlot.type === 'player') {
+                if (state.activeSlot.playerIdx === idx) {
+                    state.activeSlot = null;
+                } else if (state.activeSlot.playerIdx > idx) {
+                    state.activeSlot.playerIdx--;
+                }
+            }
+
+            setState({});
+        }
+
+        function handleReset() {
+            state.community = [null, null, null, null, null];
+            state.players.forEach(p => { p.cards = [null, null]; });
+            setState({ activeSlot: { type: 'community', index: 0 }, results: null });
+        }
+
+        // ── Init ──
+        state.activeSlot = { type: 'community', index: 0 };
+        render();
+
+    })();
     </script>
 </body>
 </html>
